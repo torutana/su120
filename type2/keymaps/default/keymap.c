@@ -121,16 +121,16 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
       case _1ST_ENC:
         if (clockwise) {
-          tap_code(KC_PGDOWN);
+          tap_code(KC_VOLU);
         } else {
-          tap_code(KC_PGUP);
+          tap_code(KC_VOLD);
         }
         break;
       case _2ND_ENC:
         if (clockwise) {
-          tap_code(KC_VOLU);
+          tap_code(KC_PGDOWN);
         } else {
-          tap_code(KC_VOLD);
+          tap_code(KC_PGUP);
         }
         break;
     }
