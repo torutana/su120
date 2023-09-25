@@ -15,6 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
+#define FN1_ESC     LT(1, KC_ESC)
+
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   SEND_00 = SAFE_RANGE,
@@ -58,11 +60,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //  KC_BSPC,  KC_DEL,   KC_LEFT,  KC_DOWN,  KC_RGHT,  XXXXXXX,
 
   [0] = LAYOUT( /* Base */
-    KC_NLCK,  KC_PSLS,  KC_PAST,  KC_PMNS,  MO(1),    XXXXXXX,
-    KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_HOME,  XXXXXXX,
-    KC_P4,    KC_P5,    KC_P6,    XXXXXXX,  KC_PGUP,  XXXXXXX,
-    KC_P1,    KC_P2,    KC_P3,    KC_ENT,   KC_PGDN,  XXXXXXX,
-    KC_P0,    XXXXXXX,  KC_PDOT,  XXXXXXX,  KC_END,   XXXXXXX,
+    FN1_ESC,  KC_PSLS,  KC_PAST,  KC_PMNS,  KC_BSPC,  XXXXXXX,
+    KC_7,     KC_8,     KC_9,     KC_PPLS,  KC_HOME,  XXXXXXX,
+    KC_4,     KC_5,     KC_6,     XXXXXXX,  KC_PGUP,  XXXXXXX,
+    KC_1,     KC_2,     KC_3,     KC_ENT,   KC_PGDN,  XXXXXXX,
+    KC_0,     XXXXXXX,  KC_PDOT,  XXXXXXX,  KC_END,   XXXXXXX,
     C(KC_Z),  C(KC_A),  C(KC_X),  C(KC_C),  C(KC_V),  XXXXXXX,
 
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -74,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     
   [1] = LAYOUT(
-    RGB_TOG,  RGB_MOD,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,
-    RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    RGB_TOG,  RGB_MOD,  RGB_VAI,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    RGB_HUI,  RGB_SAI,  RGB_VAD,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    RGB_HUD,  RGB_SAD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  EEP_RST,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  RESET,    XXXXXXX,
 
