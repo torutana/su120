@@ -42,15 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *  |  KP0   00    .   Up PgDn XXXX
    *  |   BS  Del Left Down Rght XXXX
    *  `-------------------------------
-   *  Slave Side (USB Cable Not Connected Side)
-   *  ,-------------------------------
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  `-------------------------------
    */
 
   //[0] = LAYOUT( /* Base */
@@ -66,16 +57,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_7,     KC_8,     KC_9,     KC_PMNS,  XXXXXXX,  XXXXXXX,
     KC_4,     KC_5,     KC_6,     KC_PPLS,  XXXXXXX,  XXXXXXX,
     KC_1,     KC_2,     KC_3,     XXXXXXX,  XXXXXXX,  XXXXXXX,
-    KC_0,     XXXXXXX,  KC_PDOT,  KC_ENT,   XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    KC_0,     XXXXXXX,  KC_PDOT,  KC_PENT,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MUTE,  XXXXXXX,  XXXXXXX
   ),
     
   [1] = LAYOUT(
-    RGB_TOG,  RGB_MOD,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,
-    RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    _______,  XXXXXXX,  XXXXXXX,  KC_MUTE,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_VOLD,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_VOLU,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  EEP_RST,  RESET,    XXXXXXX,  XXXXXXX,
+    QK_RBT,   XXXXXXX,  EE_CLR,   XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
   ),
 };
@@ -117,7 +108,7 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
       case _1ST_ENC:
         if (clockwise) {
@@ -126,7 +117,14 @@ void encoder_update_user(uint8_t index, bool clockwise) {
           tap_code(KC_VOLD);
         }
         break;
-      case _2ND_ENC:
+      //case _2ND_ENC:
+      //  if (clockwise) {
+      //    tap_code(KC_VOLU);
+      //  } else {
+      //    tap_code(KC_VOLD);
+      //  }
+      //  break;
+      default:
         if (clockwise) {
           tap_code(KC_VOLU);
         } else {
@@ -134,5 +132,15 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
         break;
     }
+    return false;
 }
 
+/*
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (clockwise) {
+        tap_code(KC_VOLU);
+    } else {
+        tap_code(KC_VOLD);
+    }
+}
+*/

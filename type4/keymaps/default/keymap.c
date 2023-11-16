@@ -25,7 +25,7 @@ enum {
       TD_Q_ESC,
 };
 
-void dance_q_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_q_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code16(KC_Q);
     } else {
@@ -33,7 +33,7 @@ void dance_q_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_q_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_q_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code16(KC_Q);
     } else {
@@ -41,7 +41,7 @@ void dance_q_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_Q_ESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_q_finished, dance_q_reset),
 };
 

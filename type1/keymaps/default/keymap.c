@@ -18,7 +18,7 @@
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   SEND_00 = SAFE_RANGE,
-  SEND_000
+  SEND_000,
 };
 
 enum encoder_number {
@@ -38,44 +38,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *  |  KP0   00    .   Up PgDn XXXX
    *  |   BS  Del Left Down Rght XXXX
    *  `-------------------------------
-   *  Slave Side (USB Cable Not Connected Side)
-   *  ,-------------------------------
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  | XXXX XXXX XXXX XXXX XXXX XXXX
-   *  `-------------------------------
    */
 
   [0] = LAYOUT( /* Base */
-    C(KC_A),  C(KC_S),  C(KC_G),  C(KC_Y),  XXXXXXX,  XXXXXXX,
-    C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-  
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    KC_NUM,   KC_PSLS,  KC_PAST,  KC_TAB,   MO(1),    XXXXXXX,
+    KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  KC_HOME,  XXXXXXX,
+    KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  KC_END,   XXXXXXX,
+    KC_P1,    KC_P2,    KC_P3,    KC_ENT,   KC_PGUP,  XXXXXXX,
+    KC_P0,    SEND_00,  KC_PDOT,  KC_UP,    KC_PGDN,  XXXXXXX,
+    KC_BSPC,  KC_DEL,   KC_LEFT,  KC_DOWN,  KC_RGHT,  XXXXXXX
   ),
-  
+    
   [1] = LAYOUT(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  EEP_RST,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  RESET,    XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    RGB_TOG,  RGB_MOD,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,
+    RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  EE_CLR,   XXXXXXX,
+    RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  QK_BOOT,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
@@ -117,13 +94,13 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
       case _1ST_ENC:
         if (clockwise) {
-          tap_code(KC_VOLU);
+          tap_code(KC_PGDN);
         } else {
-          tap_code(KC_VOLD);
+          tap_code(KC_PGUP);
         }
         break;
       case _2ND_ENC:
@@ -134,5 +111,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
         break;
     }
+    return false;
 }
 

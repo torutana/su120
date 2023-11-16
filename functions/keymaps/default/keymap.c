@@ -16,12 +16,7 @@
 #include QMK_KEYBOARD_H
 
 #define FN1_F12     LT(1, KC_F12)
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  SEND_00 = SAFE_RANGE,
-  SEND_000
-};
+#define FN2_F11     LT(2, KC_F11)
 
 enum encoder_number {
     _1ST_ENC = 0,
@@ -54,44 +49,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
     KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    XXXXXXX,
     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   XXXXXXX,
-    KC_F11,   FN1_F12,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    FN2_F11,  FN1_F12,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_A,     KC_B,     XXXXXXX
   ),
   
   [1] = LAYOUT(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  EEP_RST,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,    XXXXXXX,
+    KC_6,     KC_7,     KC_8,     KC_9,     KC_0,    XXXXXXX,
+    FN2_F11,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
   ),
-};
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case SEND_00:
-      if (record->event.pressed) {
-        // when keycode SEND_00 is pressed
-        SEND_STRING("00");
-      } else {
-        // when keycode SEND_00 is released
-      }
-      break;
-    case SEND_000:
-      if (record->event.pressed) {
-        // when keycode SEND_000 is pressed
-        //SEND_STRING("000" SS_TAP(X_ENTER));
-        SEND_STRING("000");
-      } else {
-        // when keycode SEND_000 is released
-      }
-      break;
-  }
-  return true;
-}
+  [2] = LAYOUT(
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  EE_CLR,   XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  QK_RBT,   XXXXXXX,  XXXXXXX,  XXXXXXX,
+    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+  ),
+
+};
 
 void matrix_init_user(void) {
 
@@ -105,7 +87,7 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
       case _1ST_ENC:
         if (clockwise) {
@@ -122,5 +104,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
         break;
     }
+    return false;
 }
-

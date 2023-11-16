@@ -65,14 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_4,     KC_5,     KC_6,     XXXXXXX,  KC_PGUP,  XXXXXXX,
     KC_1,     KC_2,     KC_3,     KC_ENT,   KC_PGDN,  XXXXXXX,
     KC_0,     XXXXXXX,  KC_PDOT,  XXXXXXX,  KC_END,   XXXXXXX,
-    C(KC_Z),  C(KC_A),  C(KC_X),  C(KC_C),  C(KC_V),  XXXXXXX,
-
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    C(KC_Z),  C(KC_A),  C(KC_X),  C(KC_C),  C(KC_V),  XXXXXXX
   ),
     
   [1] = LAYOUT(
@@ -80,15 +73,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_TOG,  RGB_MOD,  RGB_VAI,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     RGB_HUI,  RGB_SAI,  RGB_VAD,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     RGB_HUD,  RGB_SAD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  EEP_RST,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  RESET,    XXXXXXX,
-
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  EE_CLR,   XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  QK_BOOT,  XXXXXXX
   ),
 };
 
@@ -127,7 +113,7 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (index) {
       case _1ST_ENC:
         if (clockwise) {
@@ -138,11 +124,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
       case _2ND_ENC:
         if (clockwise) {
-          tap_code(KC_PGDOWN);
+          tap_code(KC_PGDN);
         } else {
           tap_code(KC_PGUP);
         }
         break;
     }
+    return false;
 }
 
